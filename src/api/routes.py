@@ -29,3 +29,12 @@ def user_id(id):
     User_id = User.query.get(id)
     return jsonify(User_id.serialize())
 
+@api.route('/user',  methods=['POST'])
+def set_user():
+    request_body = request.data
+    body = json.loads(request_body)
+    nuevousuario = User(name = body['name'], email = body['email'], password = body['password'], is_active = body['is_active'])
+    db.session.add(nuevousuario)
+    db.session.commit()
+    print(body)
+    return jsonify(body)
