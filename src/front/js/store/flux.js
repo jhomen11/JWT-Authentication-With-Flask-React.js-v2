@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           //.then(result => console.log(result))
           .catch((error) => {
-            console.log("error", error);
+            console.log("El error", error);
           });
       },
       

@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 export const Registro = () => {
   const { store, actions } = useContext(Context);
 
-  const formInicial = { name: "", email: "", password: "", is_active: true };
+  const formInicial = { name: "", email: "", password: "", is_active: "" };
 
   const [datosFormulario, guardarDatosFormulario] = useState(formInicial);
 

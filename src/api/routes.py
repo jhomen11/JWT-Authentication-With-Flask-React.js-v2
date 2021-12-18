@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 import json
+import requests
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
@@ -32,10 +33,32 @@ def user_id(id):
 
 @api.route('/user',  methods=['POST'])
 def set_user():
-    request_body = request.data
-    body = json.loads(request_body)
-    nuevousuario = User(name = body['name'], email = body['email'], password = body['password'], is_active = body['is_active'])
-    db.session.add(nuevousuario)
-    db.session.commit()
-    print(body)
-    return jsonify(body)
+    # request_body = request.data
+    # body = json.loads(request_body)
+    datos = request.get_json()
+    if (datos is None):
+        return 'Falta información'
+    if ('email' not in datos):
+        return 'Falta email'
+    if ('password' not in datos):
+        return 'Falta Password'
+    new_user = User.query.filter_by(email = datos['email']).first()
+    if (new_user is None):
+        new_user = User(name = datos['name'], email = datos['email'], password = datos['password'], is_active = True)
+        db.session.add(new_user)
+        db.session.commit()
+        return 'Usuario Registrado'
+
+
+@api.route('/login', methods=['POST'])
+def set_login():
+    datos = request.get_json()
+    if (datos is None):
+        return 'Falta información'
+    if ('email' not in datos):
+        return 'Falta email'
+    if ('password' not in datos):
+        return 'Falta Password'
+    else:
+        print(datos)
+        return 'Todo ok'
