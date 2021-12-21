@@ -64,7 +64,8 @@ def set_login():
             access_token = create_access_token(identity = user_login.email, expires_delta = expira) 
             data_token = {
                 "info_user": user_login.serialize(),
-                "token": 
+                "token": access_token,
+                "expires": expira.total_seconds(),
                 "status": "OK" 
             }
             return jsonify(data_token)     
