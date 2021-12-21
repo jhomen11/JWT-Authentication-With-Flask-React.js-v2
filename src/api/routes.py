@@ -5,8 +5,8 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 import json
-import requests
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -33,8 +33,6 @@ def user_id(id):
 
 @api.route('/user',  methods=['POST'])
 def set_user():
-    # request_body = request.data
-    # body = json.loads(request_body)
     datos = request.get_json()
     if (datos is None):
         return 'Falta información'
@@ -59,6 +57,19 @@ def set_login():
         return 'Falta email'
     if ('password' not in datos):
         return 'Falta Password'
+    user_login = User.query.filter_by(email = datos['email']).first()
+    if (user_login):
+        if(user_login.password == datos['password']):
+            expira = datetime.timedelta(minutes=2)
+            access_token = create_access_token(identity = user_login.email, expires_delta = expira) 
+            data_token = {
+                "info_user": user_login.serialize(),
+                "token": 
+                "status": "OK" 
+            }
+            return jsonify(data_token)     
+ 
+        else:
+            return 'Clave Invalida'
     else:
-        print(datos)
-        return 'Todo ok'
+        return "No existe Usuario con ese correo"
