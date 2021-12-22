@@ -22,16 +22,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
-      getMessage: (datoslogin) => {
+      setLogin: (datoslogin) => {
         // fetching data from the backend
         let status;
         fetch(
-          "https://3001-scarlet-antlion-0pnnx640.ws-us23.gitpod.io/api/login"
+          "https://3001-scarlet-antlion-0pnnx640.ws-us23.gitpod.io/api/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datoslogin),
+          }
         )
           .then((resp) => resp.json())
           .then((data) => {
-            console.log(data);
-            
+            console.log(data.status);
             status = data.status;
           })
           .catch((error) => console.log("error", error));

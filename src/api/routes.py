@@ -60,7 +60,7 @@ def set_login():
     user_login = User.query.filter_by(email = datos['email']).first()
     if (user_login):
         if(user_login.password == datos['password']):
-            expira = datetime.timedelta(minutes=2)
+            expira = datetime.timedelta(minutes=10)
             access_token = create_access_token(identity = user_login.email, expires_delta = expira) 
             data_token = {
                 "info_user": user_login.serialize(),
@@ -69,7 +69,6 @@ def set_login():
                 "status": "OK" 
             }
             return jsonify(data_token)     
- 
         else:
             return 'Clave Invalida'
     else:
