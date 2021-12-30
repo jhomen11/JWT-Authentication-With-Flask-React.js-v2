@@ -60,13 +60,13 @@ def set_login():
     user_login = User.query.filter_by(email = datos['email']).first()
     if (user_login):
         if(user_login.password == datos['password']):
-            expira = datetime.timedelta(minutes=10)
+            expira = datetime.timedelta(minutes=1)
             access_token = create_access_token(identity = user_login.email, expires_delta = expira) 
             data_token = {
                 "info_user": user_login.serialize(),
                 "token": access_token,
                 "expires": expira.total_seconds(),
-                "status": "OK" 
+                "status": True 
             }
             return jsonify(data_token)     
         else:

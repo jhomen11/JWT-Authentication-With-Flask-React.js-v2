@@ -31,6 +31,7 @@ export const Registro = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     setValidacion(true)
     if(datosFormulario.name.trim() == "" || datosFormulario.email.trim() == "" || datosFormulario.password == "" || datosFormulario.password_2 == ""){
       setError("Todos los campos son Obligatorios")

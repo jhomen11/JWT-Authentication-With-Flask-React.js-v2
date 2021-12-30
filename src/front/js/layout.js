@@ -29,6 +29,9 @@ const Layout = () => {
 						<Route exact path="/registro">
 							<Registro />
 						</Route>
+						<Route exact path="/demo">
+							<Demo />
+						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>

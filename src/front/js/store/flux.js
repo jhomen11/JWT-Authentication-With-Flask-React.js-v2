@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      message: null,
+      datos : null,
+      message: null
 
       // demo: [
       // 	{
@@ -22,11 +23,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
-      setLogin: (datoslogin) => {
-        // fetching data from the backend
-        let status;
-        fetch(
-          "https://3001-scarlet-antlion-0pnnx640.ws-us23.gitpod.io/api/login",
+      setLogin: async (datoslogin) => {
+        
+        await fetch(
+          "https://3001-scarlet-antlion-0pnnx640.ws-us25.gitpod.io/api/login",
           {
             method: "POST",
             headers: {
@@ -36,16 +36,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         )
           .then((resp) => resp.json())
-          .then((data) => {
-            console.log(data.status);
-            status = data.status;
+          .then(data => {
+            sessionStorage.setItem("token", data.token)
+            setStore({ datos: data })
           })
           .catch((error) => console.log("error", error));
-        if (status == "OK") {
-          return true;
-        } else {
-          return false;
-        }
+        
       },
 
       //POST

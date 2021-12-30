@@ -1,13 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../styles/home.css";
 import { useState } from "react/cjs/react.development";
+import { computeStyles } from "@popperjs/core";
 
 export const Home = () => {
   
+  const formInicial = { email: "", password: "" };
+
   const { store, actions } = useContext(Context);
+  const history = useHistory()
   const [datoslogin, setDatosLogin] = useState({ email: "", password: ""})
+  const [validacion, setValidacion] = useState(false)
+  const [error, setError] = useState("")
+  const [redirect, setRedirect] = useState(null)
+  
+
+  const handleReset = ()=>{
+    setDatosLogin(formInicial)
+  }
 
   const handleChange = (e) =>{
     setDatosLogin({
@@ -19,14 +31,39 @@ export const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
+    setValidacion(true)
+    if(datoslogin.email == "" || datoslogin.password == "" ){
+      setError("Todos los campos son obligatorios")
+      
+      return
+    }
+    setValidacion(false)
+
     actions.setLogin(datoslogin)
+
+    
+    handleReset()
+    
+    if(store.datos){
+      history.push('/demo')
+      
+    }else{
+      alert("inval")
+    }
+    
   }
+  
+  
+
 
   return (
     <div className=" container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6 col-lg-4">
           <h2 className="text-center display-3">Login</h2>
+          {
+            validacion ?<p className="text-center mt-3 alert alert-danger">{error}</p>:null
+          }
           <form onSubmit={handleSubmit} className="mt-4">
             <div className="mb-2">
               <label className="form-label">Email</label>
@@ -35,6 +72,7 @@ export const Home = () => {
                 className="form-control"
                 name="email"
                 onChange={handleChange}
+                value={datoslogin.email}
               />
             </div>
             <div className="mb-2">
@@ -44,6 +82,7 @@ export const Home = () => {
                 className="form-control"
                 name="password"
                 onChange={handleChange}
+                value={datoslogin.password}
               />
             </div>
             <div className="d-grid mt-4">
