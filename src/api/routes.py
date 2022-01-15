@@ -26,7 +26,8 @@ def get_users():
     Users = list(map(lambda x: x.serialize(),Users))
     return jsonify(Users)
 
-@api.route('/user/<int:id>', methods=['GET'])
+@api.route('/users/<int:id>', methods=['GET'])
+@jwt_required()
 def user_id(id):
     User_id = User.query.get(id)
     return jsonify(User_id.serialize())
@@ -60,12 +61,12 @@ def set_login():
     user_login = User.query.filter_by(email = datos['email']).first()
     if (user_login):
         if(user_login.password == datos['password']):
-            expira = datetime.timedelta(minutes=1)
-            access_token = create_access_token(identity = user_login.email, expires_delta = expira) 
+            
+            access_token = create_access_token(identity = user_login.email) 
             data_token = {
                 "info_user": user_login.serialize(),
                 "token": access_token,
-                "expires": expira.total_seconds(),
+                
                 "status": True 
             }
             return jsonify(data_token)     

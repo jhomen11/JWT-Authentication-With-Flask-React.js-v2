@@ -9,6 +9,9 @@ export const Demo = () => {
 	return (
 		<div className="container">
 			<h1>Demo</h1>
+			
+				<button onClick={()=> actions.logout() } className="btn btn-primary">Back home</button>
+	
 			<Link to="/">
 				<button className="btn btn-primary">Back home</button>
 			</Link>
