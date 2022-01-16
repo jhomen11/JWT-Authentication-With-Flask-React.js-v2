@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
+import {Route, Redirect, Navigate} from "react-router-dom";
 
 const PublicRoute  = ({children, isAuthenticated, ...rest}) =>{
 
@@ -11,7 +11,7 @@ const PublicRoute  = ({children, isAuthenticated, ...rest}) =>{
                   !isAuthenticated ? (
                     children
                   ) : (
-                    <Redirect
+                    <Navigate
                       to={{
                         pathname: '/publica',
                         state: { from: location }

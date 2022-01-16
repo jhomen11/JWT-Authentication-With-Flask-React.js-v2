@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //Todos los usuarios
       getUsuarios: async () => {
-				await fetch("https://3001-scarlet-antlion-0pnnx640.ws-us27.gitpod.io/api/user")
+				await fetch("https://3001-jhomen11-uthenticationit-n4vvm02a58s.ws-us27.gitpod.io/api/user")
 					.then(response => response.json())
           .then(data =>console.log(data))
 					.then(data => setStore({ usuarios: data }))
@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       setLogin: async (datoslogin) => {
         await fetch(
-          "https://3001-scarlet-antlion-0pnnx640.ws-us27.gitpod.io/api/login",
+          "https://3001-jhomen11-uthenticationit-n4vvm02a58s.ws-us27.gitpod.io/api/login",
           {
             method: "POST",
             headers: {
@@ -60,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
         const store = getStore()
         await fetch(
-          `https://3001-scarlet-antlion-0pnnx640.ws-us27.gitpod.io/api/users/${id}`,
+          `https://3001-jhomen11-uthenticationit-n4vvm02a58s.ws-us27.gitpod.io/api/users/${id}`,
           {
             method: "GET",
             headers: {
@@ -88,16 +88,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      logout: (history) =>{
+      logout: () =>{
         sessionStorage.removeItem("token")
           setStore({ datos: null });
-          history.push('/')
+          //history.push('/')
       },
 
       //POST
       setDatosFormulario: (datosFormulario) => {
         fetch(
-          "https://3001-scarlet-antlion-0pnnx640.ws-us23.gitpod.io/api/user",
+          "https://3001-jhomen11-uthenticationit-n4vvm02a58s.ws-us27.gitpod.io/api/user",
           {
             method: "POST",
             headers: {

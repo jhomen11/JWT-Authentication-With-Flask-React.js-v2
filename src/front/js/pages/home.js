@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../../styles/home.css";
 import { useState } from "react/cjs/react.development";
 
@@ -93,7 +93,7 @@ export const Home = () => {
               <p className="fw-bold">
                 No account? <Link to={"/registro"}>Create one Now</Link>
               </p>
-              {store.datos ? <Redirect to={`/detalle/${store.datos.info_user.id}`} /> : null}
+              {store.datos ? <Navigate to={`/detalle/${store.datos.info_user.id}`} /> : null}
             </div>
           </form>
         </div>

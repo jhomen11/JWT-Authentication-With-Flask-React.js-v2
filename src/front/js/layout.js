@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
@@ -26,30 +26,20 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
-					<Switch>
-						<PublicRoute exact path="/">
-							<Home/>
-						</PublicRoute>
-						<PublicRoute exact path="/publica">
-							<Publica />
-						</PublicRoute>
-						<Route exact path="/registro">
-							<Registro />
-						</Route>
-						<Route exact path="/demo">
-							<Demo />
-						</Route>
-						<Route exact path="/single/:id">
-							<Single />
-						</Route>
-						<PrivateRoute exact path="/detalle/:id">
-							<Detalle/>
-						</PrivateRoute>
-						{/* <PrivateRoute comp={Detalle} path="detalle/:id" exact/> */}
-						<Route>
+					<Routes>
+						<Route exact path="/" element={<Home />}/>
+						<Route exact path="/publica"element={<Publica />}/>
+						<Route exact path="/registro"element={<Registro />}/>	
+						<Route exact path="/demo"element={<Demo />}/>	
+						<Route exact path="/single/:id"element={<Single />}/>
+						<Route exact path="/detalle/:id"element={
+							<PrivateRoute>
+								<Detalle/>
+							</PrivateRoute>}/>						
+						{/* <Route>
 							<h1>Not found!</h1>
-						</Route>
-					</Switch>
+						</Route> */}
+					</Routes>
 					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>

@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
-import reactRouterDom from "react-router-dom";
 import { Context } from "../store/appContext";
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Registro = () => {
   const { store, actions } = useContext(Context);
-  const history = useHistory()
+  const history = useNavigate()
 
   
   const formInicial = { name: "", email: "", password: "", password_2:"", is_active: "" };

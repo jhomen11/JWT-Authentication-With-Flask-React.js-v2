@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams,Redirect, useHistory } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
@@ -8,7 +8,7 @@ export const Detalle = () => {
     console.log(store.datos?.token)
     console.log(store.usuario)
     const { id } = useParams();
-    const history = useHistory()
+    const history = useNavigate()
 
     useEffect(() => {
         actions.datosPrivados(id);
