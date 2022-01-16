@@ -29,25 +29,19 @@ export const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    actions.setLogin(datoslogin);
-
-    
-    
     setValidacion(true);
     if (datoslogin.email == "" || datoslogin.password == "") {
       setError("Todos los campos son obligatorios");
       return
     } 
     setValidacion(false);
-    if (!store.datos?.status) {
-       setErrorValidacion(true);
-        return
-    }
-    // else if (!store.datos || store.datos == "") {
-    //   setErrorValidacion(true);
-      
-    // }
+    actions.setLogin(datoslogin);
 
+    if (!store.datos) {
+      setErrorValidacion(true);
+      return
+    }
+    setErrorValidacion(false);
     handleReset();
   };
 

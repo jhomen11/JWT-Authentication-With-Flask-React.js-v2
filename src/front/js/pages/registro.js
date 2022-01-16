@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 
 export const Registro = () => {
   const { store, actions } = useContext(Context);
@@ -104,6 +104,11 @@ export const Registro = () => {
             </div>
             <div className="d-grid mt-4">
               <button className="btn btn-success">Register</button>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="fw-bold">
+                <Link to={"/"}>LOG IN</Link>
+              </p>
             </div>
           </form>
         </div>
